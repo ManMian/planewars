@@ -1,5 +1,7 @@
 package com.zs.base;
 
+import java.awt.*;
+
 public abstract class BaseSprite {
     private int x,y;
 
@@ -25,5 +27,8 @@ public abstract class BaseSprite {
 
     public void setY(int y) {
         this.y = y;
+    }
+    public Rectangle getRectangle(){
+        return null;
     }
 }

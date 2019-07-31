@@ -8,6 +8,15 @@ public class ImageMap {
     private static final Map<String, Image> map = new HashMap<>();
     static{
         map.put("bg01", ImageUtil.getImage("com/zs/imgs/bg/bg01.png"));
+
+        map.put("my01", ImageUtil.getImage("com\\zs\\imgs\\plane\\my_1.png"));
+
+        map.put("mb01", ImageUtil.getImage("com\\zs\\imgs\\bullet\\mb_1.png"));
+
+        map.put("ep01", ImageUtil.getImage("com\\zs\\imgs\\plane\\ep_1.png"));
+
+        map.put("epb01", ImageUtil.getImage("com\\zs\\imgs\\bullet\\epb_1.png"));
+
     }
     public static Image get(String key){
         return map.get(key);
