@@ -24,8 +24,9 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
+        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
+
 
     }
 
@@ -48,7 +49,13 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (plane.getRectangle().intersects(this.getRectangle())){
             gameFrame.enemyBulletList.remove(this);
-            gameFrame.gameOver = true;
+            if(gameFrame.bloodList.size()>0){
+                gameFrame.bloodList.remove(gameFrame.bloodList.size() -1 );
+            }
+            if (gameFrame.bloodList.size() <= 0){
+//            gameFrame.gameOver = true;
+            }
+
         }
     }
 }

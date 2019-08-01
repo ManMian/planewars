@@ -9,71 +9,64 @@ import com.zs.util.DataStore;
 import com.zs.util.ImageMap;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Random;
 
-public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
+public class Props extends BaseSprite implements Drawable, Moveable {
     private Image image,image2;
-    private Random random = new Random();
     private int type;
-    private int speed = FrameConstant.GAME_SPEED * 3;
+    Random random = new Random();
+    private int speed = FrameConstant.GAME_SPEED  * 3;
 
-    public EnemyPlane(int x, int y,/* Image image,*/int type) {
-        super(x, y);
-     /*   this.image = image;*/
-        this.type = type;
-        this.image = ImageMap.get("ep01");
-        this.image2 = ImageMap.get("ep02");
+    public Props() {
+        this(0,0,1);
     }
 
-    public EnemyPlane() {
-        this(0,0,/*ImageMap.get("ep01"),*/1);
+    public Props(int x, int y, int type) {
+        super(x, y);
+        this.type = type;
+        this.image = ImageMap.get("props1");
+        this.image2 = ImageMap.get("props2");
     }
 
     @Override
     public void draw(Graphics g) {
         move();
-        fire();
+//        fire();
         if (type == 1){
             g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         }else if (type == 2){
             g.drawImage(image2,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         }
     }
-    public void fire(){
+/*    public void fire(){
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (type == 1){
             if (this.getY() > -150){
                 if (random.nextInt(1000)>995){
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + (image.getWidth(null) / 2) - ImageMap.get("epb01").getWidth(null) / 2,
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + (image.getWidth(null) / 2) - ImageMap.get("props1").getWidth(null) / 2,
                             getY() + image.getHeight(null),
-                            ImageMap.get("epb01")));
+                            ImageMap.get("props1")));
                 }
             }
         }else if (type == 2){
             if (this.getY() > -150){
                 if (random.nextInt(1000)>998){
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + (image.getWidth(null) / 2) - ImageMap.get("epb01").getWidth(null) / 2,
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + (image.getWidth(null) / 2) - ImageMap.get("props1").getWidth(null) / 2,
                             getY() + image.getHeight(null),
-                            ImageMap.get("epb01")));
+                            ImageMap.get("props1")));
                 }
             }
         }
-    }
+    }*/
     private boolean right = true;
     @Override
     public void move() {
-        if (type == 1){
-            setY(getY() + speed);
-        }else if (type == 2){
-            if (right){
-                setX(getX() + speed+2);
-                setY(getY()+ speed+1);
-            }else{
-                setX(getX() - speed);
-                setY(getY() - speed + 2);
-            }
-        }
+//        if (type == 1){
+//            setY(getY() + speed);
+//        }else if (type == 2){
+//            setY(getY() + speed);
+//        }
+        setY(getY() + speed);
         borderTesting();
     }
     public void borderTesting(){
@@ -91,16 +84,18 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
         }
 
     }
-
     @Override
     public Rectangle getRectangle() {
         return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
     }
-    /*public void collisionTesting(Plane plane){
+    public void collisionTesting(Plane plane) {
         GameFrame gameFrame = DataStore.get("gameFrame");
-            if (plane.getRectangle().intersects(this.getRectangle())){
-                gameFrame.bulletList.remove(this);
-                gameFrame.gameOver = true;
+        if (plane.getRectangle().intersects(this.getRectangle())) {
+            gameFrame.propsList.remove(this);
+            plane.propss+=1;
+            if (plane.propss>2){
+                plane.propss = 1;
             }
-    }*/
+        }
+    }
 }

@@ -26,9 +26,10 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
         borderTesting();
+        g.drawImage(image,getX()+80,getY()+70,image.getWidth(null) / 4,image.getHeight(null) / 4,null);
+
     }
 
     @Override
@@ -58,6 +59,20 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())){
                 enemyPlaneList.remove(enemyPlane);
                 gameFrame.bulletList.remove(this);
+                gameFrame.score++;
+            }
+        }
+    }
+    public void collisionTesting(Boss boss){
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        if (boss.getRectangle().intersects(this.getRectangle()) /*&& gameFrame.score>=10*/&& Boss.live){
+            gameFrame.bulletList.remove(this);
+            if (gameFrame.score>=10){
+                gameFrame.bossHp--;
+                if (gameFrame.bossHp <= 0){
+                    gameFrame.bossHp = 0;
+//                    gameFrame.gameOver = true;
+                }
             }
         }
     }

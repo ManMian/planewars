@@ -15,12 +15,18 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private Image image;
     private boolean up,right,down,left;
     private boolean fire;
-    private int speed = FrameConstant.GAME_SPEED * 2;
+    private int speed = FrameConstant.GAME_SPEED * 6;
+    public int propss = 1;
+    public static String x = "mb01";
 
-    public Plane() {
-        this((FrameConstant.FRAME_WIDTH - ImageMap.get("my01").getWidth(null)) / 2,
-                FrameConstant.FRAME_HEIGHT - ImageMap.get("my01").getHeight(null),
-                ImageMap.get("my01"));
+    public Plane() {/*构造对象时执行一次*/
+         this((FrameConstant.FRAME_WIDTH - ImageMap.get("my01").getWidth(null)) / 2,
+                    FrameConstant.FRAME_HEIGHT - ImageMap.get("my01").getHeight(null),
+                    ImageMap.get("my01"));
+        /*if (propss == 1){
+            x = "my01";
+        }if (propss == 2)
+            x = "my02";*/
 
     }
 
@@ -31,8 +37,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
+        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
+
         /*fire();*/
 
        /* if (fire){
@@ -50,10 +57,14 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public void fire(){
         if (fire && index == 0){
             GameFrame gameFrame = DataStore.get("gameFrame");
+            if (propss == 1){
+                x = "mb01";
+            }if (propss == 2)
+                x = "mb02";
             gameFrame.bulletList.add(new Bullet(
-               getX() + (image.getWidth(null) / 2) - (ImageMap.get("mb01").getWidth(null)),
-               getY() - ImageMap.get("mb01").getHeight(null),
-                ImageMap.get("mb01")
+               getX() + (image.getWidth(null) / 2) - (ImageMap.get(x).getWidth(null)),
+               getY() - ImageMap.get(x).getHeight(null),
+                ImageMap.get(x)
             ));
         }
     }

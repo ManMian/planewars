@@ -14,6 +14,7 @@ public class Background extends BaseSprite implements Drawable, Moveable {
     private Image image;
 
     public Background() {
+
         this(0,FRAME_HEIGHT - ImageMap.get("bg01").getHeight(null), ImageMap.get("bg01"));
     }
 
@@ -29,7 +30,9 @@ public class Background extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
+        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
+
+
     }
 }
