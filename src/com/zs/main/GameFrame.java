@@ -6,11 +6,16 @@ import com.zs.constant.FrameConstant;
 import com.zs.runtime.Background;
 import com.zs.runtime.Blood;
 import com.zs.runtime.Boss;
+import com.zs.runtime.BossBullet;
 import com.zs.runtime.Bullet;
 import com.zs.runtime.EnemyBullet;
 import com.zs.runtime.EnemyPlane;
+import com.zs.runtime.Over;
 import com.zs.runtime.Plane;
 import com.zs.runtime.Props;
+import com.zs.runtime.Start;
+import com.zs.runtime.Start2;
+import com.zs.runtime.Start3;
 import com.zs.util.ImageMap;
 
 import java.awt.*;
@@ -27,6 +32,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameFrame extends Frame {
     //创建背景对象
     private Background background = new Background();
+    //创建over
+    private Over over = new Over();
+    //创建开始页面
+    private Start start = new Start();
+    private Start2 start2 = new Start2();
+    private Start3 start3 = new Start3();
     //创建飞机对象
     private Plane plane = new Plane();
     //创建子弹集合
@@ -39,6 +50,8 @@ public class GameFrame extends Frame {
     public final List<Blood> bloodList = new CopyOnWriteArrayList<>();
     //道具
     public final List<Props> propsList = new CopyOnWriteArrayList<>();
+    //boss子弹
+    public final List<BossBullet> bossBullets = new CopyOnWriteArrayList<>();
 
     public Boss boss = new Boss();
 
@@ -49,9 +62,21 @@ public class GameFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        if (!gameOver) {
+        if (start.i >= 0&&start.i<1300){
+            start.draw(g);
+        /*}else if (start.i >=30&&start.i<60){
+            start2.draw(g);
+        }else if (start.i >= 60&&start.i<90){
+            start3.draw(g);*/
+        }else if (!gameOver/*&&start.i>=300*/) {
             background.draw(g);
+//            start.draw(g);
+            if (bossHp<=0){
+                over.draw(g);
+            }
             plane.draw(g);
+
+
             if (score >= 10 && Boss.live && bossHp > 0) {
                 boss.draw(g);
             } else if (bossHp ==0 && Boss.live) {
@@ -70,6 +95,9 @@ public class GameFrame extends Frame {
 //                    blood.collisionTesting(plane,enemyBullet);
 //                }
             }
+            for (BossBullet bossBullet: bossBullets){
+                bossBullet.draw(g);
+            }
             for (EnemyPlane enemyPlane : enemyPlaneList) {
                 enemyPlane.draw(g);
             }
@@ -78,6 +106,9 @@ public class GameFrame extends Frame {
             }
             for (Bullet bullet : bulletList) {
                 bullet.collisionTesting(enemyPlaneList);
+            }
+            for (BossBullet bossBullet: bossBullets){
+                bossBullet.collisionTesting(plane);
             }
 
             for (EnemyBullet enemyBullet : enemyBulletList) {
@@ -100,7 +131,7 @@ public class GameFrame extends Frame {
             g.setFont(new Font("楷体", Font.BOLD, 25));
             g.setColor(new Color(222, 117, 129));
             g.drawString("得分：" + score, 650, 100);
-            if (score >= 10) {
+            if (score >= 10&&bossHp>0) {
                 g.drawString("bossHp：" + bossHp, 650, 150);
 
             }
@@ -167,6 +198,9 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane((613 + r), -i - 200,/* ImageMap.get("ep01"),*/1));
             enemyPlaneList.add(new EnemyPlane((r + 600), -i,/* ImageMap.get("ep01"),*/2));
             enemyPlaneList.add(new EnemyPlane((3 + r), -i + 500,/* ImageMap.get("ep01"),*/1));
+            if (bossHp >= 0){
+                enemyPlaneList.add(new EnemyPlane((3 + r), -i + 500,/* ImageMap.get("ep01"),*/3));
+            }
 //            enemyPlaneList.add(new EnemyPlane(503,-1320, ImageMap.get("ep01")));
 //            enemyPlaneList.add(new EnemyPlane(103,-2220, ImageMap.get("ep01")));
 //            enemyPlaneList.add(new EnemyPlane(403,-2820, ImageMap.get("ep01")));
@@ -187,9 +221,13 @@ public class GameFrame extends Frame {
         propsList.add(new Props(202, 0, 1));
         propsList.add(new Props(250, 00, 1));
         propsList.add(new Props(300, 50, 1));
+        propsList.add(new Props(300, -1150, 1));
         propsList.add(new Props(400, 50, 1));
         propsList.add(new Props(500, -1050, 2));
+        propsList.add(new Props(500, -1550, 2));
         propsList.add(new Props(600, -1150, 2));
+        propsList.add(new Props(300, -2050, 1));
+        propsList.add(new Props(400, -3050, 1));
         setVisible(true);
     }
 

@@ -96,6 +96,13 @@ public class Props extends BaseSprite implements Drawable, Moveable {
             if (plane.propss>2){
                 plane.propss = 1;
             }
+
+            if (gameFrame.bloodList.size() == 5){gameFrame.bloodList.add(new Blood(270, 50, ImageMap.get("blood")));}
+            if (gameFrame.bloodList.size() == 4){gameFrame.bloodList.add(new Blood(220, 50, ImageMap.get("blood")));}
+            if (gameFrame.bloodList.size() == 3){gameFrame.bloodList.add(new Blood(170, 50, ImageMap.get("blood")));}
+            if (gameFrame.bloodList.size() == 2){gameFrame.bloodList.add(new Blood(120, 50, ImageMap.get("blood")));}
+            if (gameFrame.bloodList.size() == 1){gameFrame.bloodList.add(new Blood(70, 50, ImageMap.get("blood")));}
+            if (gameFrame.bloodList.size() == 0){gameFrame.bloodList.add(new Blood(20, 50, ImageMap.get("blood")));}
         }
     }
 }

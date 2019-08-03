@@ -17,8 +17,11 @@ public class ImageMap {
 
         map.put("ep01", ImageUtil.getImage("com\\zs\\imgs\\plane\\ep_1.png"));
         map.put("ep02", ImageUtil.getImage("com\\zs\\imgs\\plane\\ep_2.png"));
+        map.put("ep03", ImageUtil.getImage("com\\zs\\imgs\\plane\\ep_3.png"));
 
         map.put("epb01", ImageUtil.getImage("com\\zs\\imgs\\bullet\\epb_1.png"));
+        map.put("epb02", ImageUtil.getImage("com\\zs\\imgs\\bullet\\epb_2.png"));
+        map.put("epb03", ImageUtil.getImage("com\\zs\\imgs\\bullet\\epb_3.png"));
 
         map.put("blood", ImageUtil.getImage("com\\zs\\imgs\\blood\\blood.png"));
 
@@ -32,8 +35,18 @@ public class ImageMap {
         map.put("boss8", ImageUtil.getImage("com\\zs\\imgs\\boss\\boss_A_08.png"));
         map.put("boss9", ImageUtil.getImage("com\\zs\\imgs\\boss\\boss_A_09.png"));
 
+        map.put("bossb1", ImageUtil.getImage("com\\zs\\imgs\\bullet\\bossb_1.png"));
+
         map.put("props1", ImageUtil.getImage("com\\zs\\imgs\\props\\props1.png"));
         map.put("props2", ImageUtil.getImage("com\\zs\\imgs\\props\\props2.png"));
+
+        map.put("over", ImageUtil.getImage("com\\zs\\imgs\\over\\over.png"));
+
+        map.put("start1", ImageUtil.getImage("com\\zs\\imgs\\start\\start_01.png"));
+        map.put("start2", ImageUtil.getImage("com\\zs\\imgs\\start\\start_02.png"));
+        map.put("start3", ImageUtil.getImage("com\\zs\\imgs\\start\\start_03.png"));
+        map.put("start4", ImageUtil.getImage("com\\zs\\imgs\\start\\start_04.png"));
+        map.put("start5", ImageUtil.getImage("com\\zs\\imgs\\start\\start_05.png"));
     }
     public static Image get(String key){
         return map.get(key);

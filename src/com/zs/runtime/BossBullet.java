@@ -6,30 +6,26 @@ import com.zs.base.Moveable;
 import com.zs.constant.FrameConstant;
 import com.zs.main.GameFrame;
 import com.zs.util.DataStore;
-import com.zs.util.ImageMap;
 
 import java.awt.*;
 
-public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
+public class BossBullet extends BaseSprite implements Moveable, Drawable {
     private Image image;
     private int speed = FrameConstant.GAME_SPEED * 5;
 
-    public EnemyBullet() {
-    }
+    public BossBullet() {}
 
-    public EnemyBullet(int x, int y, Image image) {
+    public BossBullet(int x, int y, Image image) {
         super(x, y);
         this.image = image;
     }
-
-    @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g){
         move();
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
-
-
+//        g.drawImage(image,getX()+174,getY()+190,image.getWidth(null),image.getHeight(null),null);
+//        int r = 0;
+        g.drawImage(image,getX()+202,getY()+214,image.getWidth(null),image.getHeight(null),null);
+//        r+=0.5;
     }
-
     @Override
     public void move() {
         setY(getY() + speed);
@@ -45,17 +41,18 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     public Rectangle getRectangle() {
         return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
     }
+
     public void collisionTesting(Plane plane){
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (plane.getRectangle().intersects(this.getRectangle())){
-            gameFrame.enemyBulletList.remove(this);
+            gameFrame.bossBullets.remove(this);
             if(gameFrame.bloodList.size()>0){
                 gameFrame.bloodList.remove(gameFrame.bloodList.size() -1 );
             }
             if (gameFrame.bloodList.size() < 0){
-//            gameFrame.gameOver = true;
+          //  gameFrame.gameOver = true;
             }
-
         }
     }
+
 }
